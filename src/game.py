@@ -8,7 +8,7 @@
 import pygame
 # import sys
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, COLOR_BG, TITLE
-# from src.entities.player import Player
+from src.entites.player import Player
 # from src.managers.spawner import Spawner
 # from src.managers.collision import CollisionManager
 # from src.ui.hud import HUD
@@ -22,15 +22,15 @@ class Game:
 		self.clock = pygame.time.Clock()
 		self.running = True
 
-		# # 2. Shared Sprite Groups
-		# self.all_sprites = pygame.sprite.Group()
+		# 2. Shared Sprite Groups
+		self.all_sprites = pygame.sprite.Group()
 		# self.enemies = pygame.sprite.Group()
 		# self.projectiles = pygame.sprite.Group()
 		# self.pickups = pygame.sprite.Group()
 
 		# # 3. Instantiate Entities & Systems
-		# self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-		# self.all_sprites.add(self.player)
+		self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+		self.all_sprites.add(self.player)
 
 		# self.spawner = Spawner(self.all_sprites, self.enemies, self.player)
 		# self.collision_manager = CollisionManager(
@@ -47,9 +47,8 @@ class Game:
 					self.running = False
 
 	def update(self, dt):
-		pass
 		# # Update movement and internal timer logic across all active sprites
-		# self.all_sprites.update(dt)
+		self.all_sprites.update(dt)
 
 		# Run system managers
 		# self.spawner.update(dt)
@@ -60,13 +59,13 @@ class Game:
 		self.screen.fill(COLOR_BG)
 
 		# # Draw all active sprites
-		# self.all_sprites.draw(self.screen)
+		self.all_sprites.draw(self.screen)
 
 		# # Draw UI overlay on top
 		# self.hud.draw(self.screen)
 
 		# Flip display buffers
-		pygame.display.flip()
+		pygame.display.update()
 
 	def run(self):
 		while self.running:
