@@ -9,9 +9,11 @@ import pygame
 # import sys
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, COLOR_BG, TITLE
 from src.entites.player import Player
-# from src.managers.spawner import Spawner
+from src.managers.spawner import Spawner
 # from src.managers.collision import CollisionManager
 # from src.ui.hud import HUD
+from src.entites.weapons import MagicWand, Slash, Meteorite
+# from src.entites.projectiles import Bullet, BlastVisual, SlashHitbox
 
 
 class Game:
@@ -24,15 +26,16 @@ class Game:
 
 		# 2. Shared Sprite Groups
 		self.all_sprites = pygame.sprite.Group()
-		# self.enemies = pygame.sprite.Group()
-		# self.projectiles = pygame.sprite.Group()
+		self.enemies = pygame.sprite.Group()
+		self.projectiles = pygame.sprite.Group()
 		# self.pickups = pygame.sprite.Group()
 
 		# # 3. Instantiate Entities & Systems
 		self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+		# self.weapon = MagicWand(self.player)
 		self.all_sprites.add(self.player)
 
-		# self.spawner = Spawner(self.all_sprites, self.enemies)
+		self.spawner = Spawner(self.all_sprites, self.enemies, self.player)
 		# self.collision_manager = CollisionManager(
 		# 	self.player, self.enemies, self.projectiles, self.pickups
 		# )
@@ -47,11 +50,12 @@ class Game:
 					self.running = False
 
 	def update(self, dt):
-		# # Update movement and internal timer logic across all active sprites
+		# Update movement and internal timer logic across all active sprites
 		self.all_sprites.update(dt)
 
-		# # Run system managers
-		# self.spawner.update(dt, self.player.rect.center)
+		# Run system managers
+		self.spawner.update(dt)
+		# self.weapon.update(self.all_sprites, self.projectiles, self.enemies)
 		# self.collision_manager.update()
 
 	def render(self):
@@ -61,7 +65,7 @@ class Game:
 		# # Draw all active sprites
 		self.all_sprites.draw(self.screen)
 
-		# # Draw UI overlay on top
+		# Draw UI overlay on top
 		# self.hud.draw(self.screen)
 
 		# Flip display buffers

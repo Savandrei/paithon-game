@@ -1,20 +1,9 @@
 import pygame
 
-# Default fallback resolution if settings.py isn't imported yet
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-
-try:
-    from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT
-except ImportError:
-    pass
-
+from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class BaseProjectile(pygame.sprite.Sprite):
-    """
-    Base class for all flying attacks/projectiles.
-    Handles sub-pixel movement, pierce tracking, boundary checks, and lifetime.
-    """
+    # Base class for all flying attacks/projectiles
     def __init__(
         self,
         pos,
@@ -56,17 +45,17 @@ class BaseProjectile(pygame.sprite.Sprite):
         self.lifetime = lifetime
 
     def update(self):
-        """Move forward and check expiration."""
+        # Move forward and check expiration
         self.move()
         self.check_lifetime_and_bounds()
 
     def move(self):
-        """Advances position along direction vector."""
+        # Advances position along direction vector
         self.pos += self.direction * self.speed
         self.rect.center = (round(self.pos.x), round(self.pos.y))
 
     def check_lifetime_and_bounds(self):
-        """Despawns projectile if its timer runs out or it leaves the screen."""
+        # Despawns projectile if its timer runs out or it leaves the screen
         self.lifetime -= 1
         screen_rect = pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -74,10 +63,7 @@ class BaseProjectile(pygame.sprite.Sprite):
             self.kill()
 
     def hit_enemy(self):
-        """
-        Decrements pierce count upon hitting an enemy.
-        Call this from your collision manager.
-        """
+        # Decreases pierce count upon hitting an enemy
         self.pierce -= 1
         if self.pierce <= 0:
             self.kill()
