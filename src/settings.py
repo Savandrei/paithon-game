@@ -17,7 +17,9 @@ TITLE = "to be written"
 
 # Color Definitions (RGB)
 # to be written
-COLOR_BG = (15, 15, 20)
+
+# grass colored picked with color wheel
+COLOR_BG = (169, 210, 45)
 
 # UI Elements
 # to be written
