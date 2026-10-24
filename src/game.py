@@ -3,13 +3,15 @@
 # what to include to make the game run
 # probably will change and adapt later
 
+# yea, I changed it literally 15 mins later
+
 import pygame
-import sys
+# import sys
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, COLOR_BG, TITLE
-from src.entities.player import Player
-from src.managers.spawner import Spawner
-from src.managers.collision import CollisionManager
-from src.ui.hud import HUD
+# from src.entities.player import Player
+# from src.managers.spawner import Spawner
+# from src.managers.collision import CollisionManager
+# from src.ui.hud import HUD
 
 
 class Game:
@@ -20,21 +22,21 @@ class Game:
 		self.clock = pygame.time.Clock()
 		self.running = True
 
-		# 2. Shared Sprite Groups
-		self.all_sprites = pygame.sprite.Group()
-		self.enemies = pygame.sprite.Group()
-		self.projectiles = pygame.sprite.Group()
-		self.pickups = pygame.sprite.Group()
+		# # 2. Shared Sprite Groups
+		# self.all_sprites = pygame.sprite.Group()
+		# self.enemies = pygame.sprite.Group()
+		# self.projectiles = pygame.sprite.Group()
+		# self.pickups = pygame.sprite.Group()
 
-		# 3. Instantiate Entities & Systems
-		self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-		self.all_sprites.add(self.player)
+		# # 3. Instantiate Entities & Systems
+		# self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+		# self.all_sprites.add(self.player)
 
-		self.spawner = Spawner(self.all_sprites, self.enemies)
-		self.collision_manager = CollisionManager(
-			self.player, self.enemies, self.projectiles, self.pickups
-		)
-		self.hud = HUD(self.player)
+		# self.spawner = Spawner(self.all_sprites, self.enemies)
+		# self.collision_manager = CollisionManager(
+		# 	self.player, self.enemies, self.projectiles, self.pickups
+		# )
+		# self.hud = HUD(self.player)
 
 	def handle_events(self):
 		for event in pygame.event.get():
@@ -45,22 +47,23 @@ class Game:
 					self.running = False
 
 	def update(self, dt):
-		# Update movement and internal timer logic across all active sprites
-		self.all_sprites.update(dt)
+		pass
+		# # Update movement and internal timer logic across all active sprites
+		# self.all_sprites.update(dt)
 
-		# Run system managers
-		self.spawner.update(dt, self.player.rect.center)
-		self.collision_manager.update()
+		# # Run system managers
+		# self.spawner.update(dt, self.player.rect.center)
+		# self.collision_manager.update()
 
 	def render(self):
 		# Clear screen with background color
 		self.screen.fill(COLOR_BG)
 
-		# Draw all active sprites
-		self.all_sprites.draw(self.screen)
+		# # Draw all active sprites
+		# self.all_sprites.draw(self.screen)
 
-		# Draw UI overlay on top
-		self.hud.draw(self.screen)
+		# # Draw UI overlay on top
+		# self.hud.draw(self.screen)
 
 		# Flip display buffers
 		pygame.display.flip()

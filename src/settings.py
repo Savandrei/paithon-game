@@ -17,6 +17,7 @@ TITLE = "to be written"
 
 # Color Definitions (RGB)
 # to be written
+COLOR_BG = (15, 15, 20)
 
 # UI Elements
 # to be written
