@@ -16,6 +16,8 @@ class Player(pygame.sprite.Sprite):
 	def __init__(self, pos):
 		super().__init__()
 
+
+
 		# convert_alpha() is for png to be a png and not a box
 		# well, if it was actually a png
 		raw_image = pygame.image.load('assets/images/player_placeholder.png').convert_alpha()
@@ -24,6 +26,11 @@ class Player(pygame.sprite.Sprite):
 
 		self.rect = self.image.get_rect(center=pos)
 		self.rect = self.image.get_rect(center=pos)
+
+
+		#  ^
+		#  |  yay first merge conflict
+		#  |
 
 		self.pos = pygame.math.Vector2(pos)
 		self.speed = PLAYER_SPEED
