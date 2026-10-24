@@ -13,7 +13,7 @@ class BaseEnemy(pygame.sprite.Sprite):
         self.health = health
         self.damage = damage
 
-    def update(self):
+    def update(self, *args, **kwargs):
         # Universal steering behavior
         target_pos = pygame.math.Vector2(self.target.rect.center)
         direction = target_pos - self.pos

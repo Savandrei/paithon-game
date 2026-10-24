@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
 	def __init__(this, pos):
 		super().__init__()
 
-		this.image = pygame.image.load('assets/images/player_placeholder.png')
+		this.image = pygame.image.load('paithon-game/assets/images/player_placeholder.png')
 		this.rect = this.image.get_rect(center=pos)
 
 		this.pos = pygame.math.Vector2(pos)
