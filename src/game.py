@@ -32,7 +32,7 @@ class Game:
 		# self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
 		# self.all_sprites.add(self.player)
 
-		# self.spawner = Spawner(self.all_sprites, self.enemies)
+		# self.spawner = Spawner(self.all_sprites, self.enemies, self.player)
 		# self.collision_manager = CollisionManager(
 		# 	self.player, self.enemies, self.projectiles, self.pickups
 		# )
@@ -52,7 +52,7 @@ class Game:
 		# self.all_sprites.update(dt)
 
 		# # Run system managers
-		# self.spawner.update(dt, self.player.rect.center)
+		# self.spawner.update(dt)
 		# self.collision_manager.update()
 
 	def render(self):
