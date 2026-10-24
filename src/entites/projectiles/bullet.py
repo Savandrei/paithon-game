@@ -1,7 +1,7 @@
 from .base_projectile import BaseProjectile
 
 class Bullet(BaseProjectile):
-    """A standard yellow projectile that hits a single target."""
+    # A standard yellow projectile that hits a single target
     def __init__(self, pos, direction):
         super().__init__(
             pos=pos,

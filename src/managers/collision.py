@@ -1,9 +1,8 @@
 import pygame
 
 class CollisionManager:
-    """
-    Handles all spatial overlaps and combat interactions between game entities.
-    """
+    # Handles spatial overlaps and combat interactions between game entities
+
     def __init__(self, player, enemy_group, projectile_group, pickup_group):
         self.player = player
         self.enemy_group = enemy_group
@@ -11,7 +10,6 @@ class CollisionManager:
         self.pickup_group = pickup_group
 
     def update(self):
-        """Runs all collision checks for the current frame."""
         self._handle_combat_collisions()
         # self._handle_pickups()  # To be implemented when we add XP gems
 

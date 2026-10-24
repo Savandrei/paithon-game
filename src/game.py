@@ -34,7 +34,7 @@ class Game:
 
 		# self.spawner = Spawner(self.all_sprites, self.enemies, self.player)
 		# self.collision_manager = CollisionManager(
-		# 	self.player, self.enemies, self.projectiles, self.pickups
+		#	self.player, self.enemies, self.projectiles, self.pickups
 		# )
 		# self.hud = HUD(self.player)
 
@@ -51,7 +51,7 @@ class Game:
 		# # Update movement and internal timer logic across all active sprites
 		# self.all_sprites.update(dt)
 
-		# # Run system managers
+		# Run system managers
 		# self.spawner.update(dt)
 		# self.collision_manager.update()
 

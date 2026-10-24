@@ -2,7 +2,7 @@ import pygame
 from .base_projectile import BaseProjectile
 
 class BlastVisual(BaseProjectile):
-    """A visual-only explosion indicator that deals no direct projectile damage."""
+    # A visual-only explosion indicator that deals no direct projectile damage
     def __init__(self, pos, radius):
         super().__init__(
             pos=pos,
