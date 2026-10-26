@@ -12,7 +12,7 @@ from src.entites.player import Player
 from src.managers.spawner import Spawner
 # from src.managers.collision import CollisionManager
 # from src.ui.hud import HUD
-from src.entites.weapons import MagicWand, Slash, Meteorite
+# from src.entites.weapons import MagicWand, Slash, Meteorite
 # from src.entites.projectiles import Bullet, BlastVisual, SlashHitbox
 
 

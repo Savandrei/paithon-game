@@ -32,6 +32,8 @@ PLAYER_MAX_HP = 100
 PLAYER_SIZE = 32
 PLAYER_PICKUP_RADIUS = 120
 
+DASH_SPEED = PLAYER_SPEED * 8
+
 # Weapon Related Settings and Stuff
 
 # Collectibles
