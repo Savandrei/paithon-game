@@ -76,6 +76,11 @@ class Player(pygame.sprite.Sprite):
 		if keys[pygame.K_d]:
 			direction.x += 1
 
+		# fix diagonal movement
+		# 1 / sqrt2 ~ 0.707
+		if direction.x != 0 and direction.y != 0:
+			direction.x *= 0.707
+			direction.y *= 0.707
 
 		#sets dash direction
 		if direction != (0,0):
