@@ -1,6 +1,6 @@
 import pygame
 from src.settings import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, DASH_SPEED
-from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite
+from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite, BulletWand
 
 
 # trial and error
@@ -38,6 +38,7 @@ class Player(pygame.sprite.Sprite):
 
 		self.weapons = []
 		self.add_weapon(MagicWand(self))
+		self.add_weapon(BulletWand(self))
 
 		#dash related variables
 		self.is_dashing = False
@@ -45,7 +46,7 @@ class Player(pygame.sprite.Sprite):
 		self.is_invincible = False
 		self.dash_dx = 0
 		self.dash_dy = 0
-		self.dash_duration = 100
+		self.dash_duration = 60
 		self.dash_cooldown = 1000
 
 	def add_weapon(self, weapon: BaseWeapon):
