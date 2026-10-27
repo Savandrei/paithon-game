@@ -2,6 +2,7 @@ import pygame
 from src.settings import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, DASH_SPEED
 from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite
 
+
 # trial and error
 PLAYER_IMG_HEIGHT = 60
 PLAYER_IMG_WIDTH = 40
@@ -35,8 +36,8 @@ class Player(pygame.sprite.Sprite):
 		self.pos = pygame.math.Vector2(pos)
 		self.speed = PLAYER_SPEED
 
-		# self.weapons = []
-		# self.add_weapon(MagicWand(self))
+		self.weapons = []
+		self.add_weapon(MagicWand(self))
 
 		#dash related variables
 		self.is_dashing = False
@@ -47,8 +48,8 @@ class Player(pygame.sprite.Sprite):
 		self.dash_duration = 100
 		self.dash_cooldown = 1000
 
-	# def add_weapon(self, weapon: BaseWeapon):
-	# 	self.weapons.append(weapon)
+	def add_weapon(self, weapon: BaseWeapon):
+		self.weapons.append(weapon)
 
 	def get_input(self):
 		keys = pygame.key.get_pressed()
@@ -107,7 +108,7 @@ class Player(pygame.sprite.Sprite):
 		self.pos.x = self.rect.centerx
 		self.pos.y = self.rect.centery
 
-	def update(self, dt):
+	def update(self, dt, all_sprites=None, projectile_group=None, enemy_group=None):
 		direction = self.get_input()
 		current_time = pygame.time.get_ticks()
 
@@ -132,6 +133,6 @@ class Player(pygame.sprite.Sprite):
 		self.no_offscreen_warriors()
 
 
-		# if all_sprites is not None and projectile_group is not None and enemy_group is not None:
-		# 	for weapon in self.weapons:
-		# 		weapon.update(all_sprites, projectile_group, enemy_group)
+		if all_sprites is not None and projectile_group is not None and enemy_group is not None:
+			for weapon in self.weapons:
+				weapon.update(dt, all_sprites, projectile_group, enemy_group)

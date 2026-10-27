@@ -1,11 +1,12 @@
 import pygame
 from .base_weapon import BaseWeapon
-from src.entites.projectiles import Bullet
+from src.entites.projectiles import Bullet, BlastVisual
 
 class MagicWand(BaseWeapon):
-    # Auto-fires a bullet at the nearest enemy on a set cooldown
+    # Auto-fires a bullet/blast at the nearest enemy on a set cooldown
     def __init__(self, player):
-        super().__init__(player, cooldown_frames=45) 
+        # 45 frames @ 60 FPS corresponds to 0.75 seconds
+        super().__init__(player, cooldown=0.75) 
 
     def attack(self, all_sprites, projectile_group, enemy_group):
         if not enemy_group:
@@ -21,6 +22,11 @@ class MagicWand(BaseWeapon):
         direction = pygame.math.Vector2(closest_enemy.rect.center) - self.player.rect.center
 
         # Spawn the bullet and assign it to the groups
-        bullet = Bullet(pos=self.player.rect.center, direction=direction)
-        all_sprites.add(bullet)
-        projectile_group.add(bullet)
+        # bullet = Bullet(pos=self.player.rect.center, direction=direction)
+        # all_sprites.add(bullet)
+        # projectile_group.add(bullet)
+        
+        blast = BlastVisual(pos=closest_enemy.rect.center, radius=30)
+        
+        all_sprites.add(blast)
+        projectile_group.add(blast)
