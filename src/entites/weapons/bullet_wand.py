@@ -1,6 +1,6 @@
 import pygame
 from .base_weapon import BaseWeapon
-from src.entites.projectiles import Bullet, BlastVisual
+from src.entites.projectiles import Bullet
 
 class BulletWand(BaseWeapon):
 	# Auto-fires a bullet/blast at the nearest enemy on a set cooldown

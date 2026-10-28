@@ -5,7 +5,6 @@ class BaseWeapon:
     # Tracks cooldown timers in seconds, weapon level, and triggers attacks
     def __init__(self, player, cooldown=0.75):
         self.player = player
-        # Cooldown duration in seconds (e.g., 0.75s instead of 45 frames)
         self.cooldown = cooldown  
         self.timer = 0.0
         self.level = 1

@@ -4,26 +4,34 @@ from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite, BulletW
 
 
 # trial and error
-PLAYER_IMG_HEIGHT = 60
-PLAYER_IMG_WIDTH = 40
+PLAYER_HEIGHT = 90
+PLAYER_WIDTH = 60
 
 
 # pretty much just java code from this point on
 class Player(pygame.sprite.Sprite):
 
-	# changed "this" to "self"
-
 	# initialization
 	def __init__(self, pos):
 		super().__init__()
 
+		frames = self.load_sprite_sheet("assets/images/player_sprite_sheet.png", PLAYER_WIDTH, PLAYER_HEIGHT, 4, 2)
+
+		self.sprites = {
+			'up': frames[0],
+			'up_right': frames[1],
+			'right': frames[2],
+			'down_right': frames[3],
+			'down': frames[4],
+			'down_left': frames[5],
+			'left': frames[6],
+			'up_left': frames[7],
+		}
+
+		self.facing = 'down'
+		self.image = self.sprites[self.facing]
+
 		#########################################
-
-		# convert_alpha() is for png to be a png and not a box
-		# well, if it was actually a png
-		raw_image = pygame.image.load('assets/images/player_placeholder.png').convert_alpha()
-		self.image = pygame.transform.scale(raw_image, (PLAYER_IMG_WIDTH, PLAYER_IMG_HEIGHT))
-
 
 		self.rect = self.image.get_rect(center=pos)
 		self.rect = self.image.get_rect(center=pos)
@@ -49,9 +57,64 @@ class Player(pygame.sprite.Sprite):
 		self.dash_duration = 60
 		self.dash_cooldown = 1000
 
+##############################################################
 	def add_weapon(self, weapon: BaseWeapon):
 		self.weapons.append(weapon)
 
+##############################################################
+	def load_sprite_sheet(self, path, frame_width, frame_height, columns, rows):
+		# convert_alpha() is for png to be a png and not a box
+		sheet = pygame.image.load(path).convert_alpha()
+
+		cell_width = sheet.get_width() // columns
+		cell_height = sheet.get_height() // rows
+
+		frames = []
+
+		for row in range(rows):
+			for col in range(columns):
+
+				frame = pygame.Surface((cell_width, cell_height), pygame.SRCALPHA)
+				frame.blit(sheet, (0, 0), (col * cell_width, row * cell_height, cell_width, cell_height))
+				frame = pygame.transform.scale(frame, (frame_width, frame_height))
+
+				frames.append(frame)
+
+		return frames
+
+##############################################################
+	def update_facing(self, direction):
+		# Determine which of the 8 directions the player is facing.
+		dx = direction.x
+		dy = direction.y
+
+		if dx == 0 and dy < 0:
+			facing = 'up'
+		elif dx == 0 and dy > 0:
+			facing = 'down'
+		elif dx < 0 and dy == 0:
+			facing = 'left'
+		elif dx > 0 and dy == 0:
+			facing = 'right'
+		elif dx < 0 and dy < 0:
+			facing = 'up_left'
+		elif dx > 0 and dy < 0:
+			facing = 'up_right'
+		elif dx < 0 and dy > 0:
+			facing = 'down_left'
+		elif dx > 0 and dy > 0:
+			facing = 'down_right'
+		else:
+			return
+
+		if facing != self.facing:
+			self.facing = facing
+			self.image = self.sprites[self.facing]
+
+			self.rect = self.image.get_rect(center=self.rect.center)
+
+
+############################################################
 	def get_input(self):
 		keys = pygame.key.get_pressed()
 		direction = pygame.math.Vector2(0, 0)
@@ -97,6 +160,7 @@ class Player(pygame.sprite.Sprite):
 
 		return direction
 
+#############################################################
 	def no_offscreen_warriors(self):
 		self.rect.left = max(0, self.rect.left)
 		self.rect.right = min(SCREEN_WIDTH, self.rect.right)
@@ -109,9 +173,12 @@ class Player(pygame.sprite.Sprite):
 		self.pos.x = self.rect.centerx
 		self.pos.y = self.rect.centery
 
+##############################################################
 	def update(self, dt, all_sprites=None, projectile_group=None, enemy_group=None):
 		direction = self.get_input()
 		current_time = pygame.time.get_ticks()
+
+		self.update_facing(direction)
 
 		if self.is_dashing:
 			# if dash ends
