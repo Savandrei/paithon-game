@@ -1,19 +1,20 @@
 import pygame
-from .base_projectile import BaseProjectile
 
-class Bullet(BaseProjectile):
-	# A standard yellow projectile that hits a single target
+class Bullet(pygame.sprite.Sprite):
 	def __init__(self, pos, direction):
-		super().__init__(
-			pos=pos,
-			direction=direction,
-			speed=600,
-			damage=15,
-			pierce=1,
-			lifetime=120,
-			color=(255, 220, 50),
-			size=(40, 20)
-		)
+		super().__init__()
+
+		self.speed=600
+		self.damage=15
+		self.pierce=1
+		self.lifetime=120
+		self.color=(255, 220, 50)
+		size=(40, 20)
+
+		self.image = pygame.Surface(size, pygame.SRCALPHA)
+		self.rect = self.image.get_rect(center=pos)
+		self.pos = pygame.math.Vector2(pos)
+		self.direction = direction.normalize() if direction.length() > 0 else pygame.math.Vector2(1, 0)
 
 		# outer layer
 		pygame.draw.rect(self.image, (0, 0, 0, 100), (0, 0, 40, 20))
@@ -31,7 +32,12 @@ class Bullet(BaseProjectile):
 		self.rotated_image = self.image.copy()
 
 	def update(self, dt, *args, **kwargs):
-		# the base_projectile shrinked one dimension of the bullet
-		return_value = super().update(dt, *args, **kwargs)
+		self.pos += self.direction * self.speed * dt
+		self.rect.center = (round(self.pos.x), round(self.pos.y))
+
 		self.image = self.rotated_image
-		return return_value
+
+		self.lifetime -= dt
+		if self.lifetime <= 0:
+			self.kill()
+
