@@ -55,6 +55,9 @@ class Game:
 		self.all_sprites.update(dt)
 		self.spawner.update(dt)
 		self.collision_manager.update()
+		# end the game if player ded
+		if self.player.health <= 0:
+			self.running = False
 
 	def render(self):
 		# Clear screen with background color

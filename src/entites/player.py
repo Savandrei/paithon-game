@@ -1,5 +1,5 @@
 import pygame
-from src.settings import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, DASH_SPEED
+from src.settings import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, DASH_SPEED, PLAYER_MAX_HP
 from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite, BulletWand
 
 
@@ -14,6 +14,10 @@ class Player(pygame.sprite.Sprite):
 	# initialization
 	def __init__(self, pos):
 		super().__init__()
+
+		self.health = PLAYER_MAX_HP
+		self.damage_invulnerable_until = 0
+		self.damage_invulnerability_ms = 1000
 
 		frames = self.load_sprite_sheet("assets/images/player_sprite_sheet.png", PLAYER_WIDTH, PLAYER_HEIGHT, 4, 2)
 
@@ -204,3 +208,14 @@ class Player(pygame.sprite.Sprite):
 		if all_sprites is not None and projectile_group is not None and enemy_group is not None:
 			for weapon in self.weapons:
 				weapon.update(dt, all_sprites, projectile_group, enemy_group)
+
+##############################################################
+	def take_damage(self, amount):
+		now = pygame.time.get_ticks()
+
+    	# dash already makes the player invulnerable so use that
+		if self.is_dashing or now < self.damage_invulnerable_until:
+			return
+
+		self.health = max(0, self.health - amount)
+		self.damage_invulnerable_until = now + self.damage_invulnerability_ms
