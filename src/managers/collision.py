@@ -33,6 +33,9 @@ class CollisionManager:
         # 2. Enemies vs Player
         # spritecollide returns a list of enemies currently touching the player
         collided_enemies = pygame.sprite.spritecollide(self.player, self.enemy_group, False)
+
         for enemy in collided_enemies:
             # Assumes your partner's Player class has a take_damage method with i-frames
             self.player.take_damage(enemy.damage)
+            # game doesn't know what to do if an enemy touches the player and the game will crash
+            # solution? just don't get hit
