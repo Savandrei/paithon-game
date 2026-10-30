@@ -41,3 +41,8 @@ class Bullet(pygame.sprite.Sprite):
 		if self.lifetime <= 0:
 			self.kill()
 
+	def hit_enemy(self):
+		self.pierce -= 1
+		if self.pierce <= 0:
+			self.kill()
+

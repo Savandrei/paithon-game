@@ -10,7 +10,7 @@ import pygame
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, COLOR_BG, TITLE
 from src.entites.player import Player
 from src.managers.spawner import Spawner
-# from src.managers.collision import CollisionManager
+from src.managers.collision import CollisionManager
 # from src.ui.hud import HUD
 
 
@@ -33,9 +33,11 @@ class Game:
 		self.all_sprites.add(self.player)
 
 		self.spawner = Spawner(self.all_sprites, self.enemies, self.player)
-		# self.collision_manager = CollisionManager(
-		# 	self.player, self.enemies, self.projectiles, self.pickups
-		# )
+
+		self.pickups = pygame.sprite.Group()
+		self.collision_manager = CollisionManager(
+			self.player, self.enemies, self.projectiles, self.pickups,
+		)
 		# self.hud = HUD(self.player)
 
 	def handle_events(self):
@@ -52,7 +54,10 @@ class Game:
 
 		self.all_sprites.update(dt)
 		self.spawner.update(dt)
-		# self.collision_manager.update()
+		self.collision_manager.update()
+		# end the game if player ded
+		if self.player.health <= 0:
+			self.running = False
 
 	def render(self):
 		# Clear screen with background color
