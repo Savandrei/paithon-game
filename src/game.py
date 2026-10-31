@@ -16,19 +16,19 @@ from src.managers.collision import CollisionManager
 
 class Game:
 	def __init__(self):
-		# Display Setup
+		# display Setup
 		self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 		pygame.display.set_caption(TITLE)
 		self.clock = pygame.time.Clock()
 		self.running = True
 
-		# Shared Sprite Groups
+		# shared Sprite Groups
 		self.all_sprites = pygame.sprite.Group()
 		self.enemies = pygame.sprite.Group()
 		self.projectiles = pygame.sprite.Group()
 		# self.pickups = pygame.sprite.Group()
 
-		# Instantiate Entities & Systems
+		# instantiate Entities & Systems
 		self.player = Player(pos=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
 		self.all_sprites.add(self.player)
 
@@ -62,21 +62,21 @@ class Game:
 			self.running = False
 
 	def render(self):
-		# Clear screen with background color
+		# clear screen with background color
 		self.screen.fill(COLOR_BG)
 
-		# # Draw all active sprites
+		# draw all active sprites
 		self.all_sprites.draw(self.screen)
 
-		# Draw UI overlay on top
+		# draw UI overlay on top
 		# self.hud.draw(self.screen)
 
-		# Flip display buffers
+		# flip display buffers
 		pygame.display.update()
 
 	def run(self):
 		while self.running:
-			# Calculate delta time in seconds (e.g., 0.016s at 60 FPS)
+			# calculate delta time in seconds (e.g., 0.016s at 60 FPS)
 			dt = self.clock.tick(FPS) / 1000.0
 
 			self.handle_events()

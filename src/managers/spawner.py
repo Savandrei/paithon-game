@@ -3,15 +3,15 @@ from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from src.entites.enemies import Bat, Zombie, Slime
 
 class Spawner:
-	# Handles spawning enemies outside the camera view at set intervals
+	# spawns off-screen at set intervals
 	def __init__(self, all_sprites, enemy_group, target_player):
 		self.all_sprites = all_sprites
 		self.enemy_group = enemy_group
 		self.target = target_player
 		
-		# Timing and progression
+		# timing and progression
 		self.timer = 0
-		self.spawn_interval = 0.13  # seconds
+		self.spawn_interval = 0.20  # seconds
 
 	def get_perimeter_pos(self):
 		# calculates a random coordinate outside the screen boundaries
@@ -28,7 +28,7 @@ class Spawner:
 			return SCREEN_WIDTH + offset, random.randint(0, SCREEN_HEIGHT)
 
 	def update(self, dt):
-		# Ticks the spawn timer and creates enemies
+		# ticks the spawn timer and creates enemies
 		self.timer += dt
 		
 		if self.timer >= self.spawn_interval:

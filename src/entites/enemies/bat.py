@@ -5,7 +5,7 @@ class Bat(BaseEnemy):
         super().__init__(
             pos=pos,
             target_player=target_player,
-            speed=2,
+            speed=200,
             health=40,
             damage=10,
             color=(180, 180, 180),  # Green color

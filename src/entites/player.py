@@ -90,7 +90,7 @@ class Player(pygame.sprite.Sprite):
 
 ##############################################################
 	def update_facing(self, direction):
-		# Determine which of the 8 directions the player is facing.
+		# determine which of the 8 directions the player is facing.
 		dx = direction.x
 		dy = direction.y
 

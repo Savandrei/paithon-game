@@ -1,8 +1,8 @@
 import pygame
 
 class BaseWeapon:
-    # Base class for player weapons and abilities
-    # Tracks cooldown timers in seconds, weapon level, and triggers attacks
+    # base class for player weapons and abilities
+    # tracks cooldown timers in seconds, weapon level, and triggers attacks
     def __init__(self, player, cooldown=0.75, projectile_number=1):
         self.player = player
         self.cooldown = cooldown

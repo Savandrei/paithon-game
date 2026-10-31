@@ -6,7 +6,7 @@ class Slime(BaseEnemy):
         super().__init__(
             pos=pos,
             target_player=target_player,
-            speed=1.8,
+            speed=180,
             health=40,
             damage=10,
             color=(0, 200, 100),  # Slime Green
