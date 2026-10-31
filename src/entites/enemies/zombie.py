@@ -6,7 +6,7 @@ class Zombie(BaseEnemy):
         super().__init__(
             pos=pos,
             target_player=target_player,
-            speed=1.2,
+            speed=120,
             health=80,
             damage=20,
             color=(50, 180, 75),  # Green color
