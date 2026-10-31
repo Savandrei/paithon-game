@@ -11,7 +11,7 @@ class Spawner:
 		
 		# Timing and progression
 		self.timer = 0
-		self.spawn_interval = 10  # Frames between each spawn
+		self.spawn_interval = 0.13  # seconds
 
 	def get_perimeter_pos(self):
 		# calculates a random coordinate outside the screen boundaries
@@ -28,17 +28,17 @@ class Spawner:
 			return SCREEN_WIDTH + offset, random.randint(0, SCREEN_HEIGHT)
 
 	def update(self, dt):
-		# ticks the spawn timer and creates enemies
-		self.timer += 1
+		# Ticks the spawn timer and creates enemies
+		self.timer += dt
 		
 		if self.timer >= self.spawn_interval:
 			self.timer = 0
 			pos = self.get_perimeter_pos()
 			
-			# random choice placeholder: 50% chance for bat, 30% chance for zombie, 20% chance for slime
+			# Weighted random choice: 70% chance for Bat, 30% chance for Zombie
 			enemy_class = random.choices([Bat, Zombie, Slime], weights=[50, 30, 20])[0]
 			
-			# instantiate the chosen enemy and add to groups
+			# Instantiate the chosen enemy and add to groups
 			enemy = enemy_class(pos=pos, target_player=self.target)
 			self.all_sprites.add(enemy)
 			self.enemy_group.add(enemy)
