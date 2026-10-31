@@ -213,7 +213,7 @@ class Player(pygame.sprite.Sprite):
 	def take_damage(self, amount):
 		now = pygame.time.get_ticks()
 
-    	# dash already makes the player invulnerable so use that
+		# dash already makes the player invulnerable so use that
 		if self.is_dashing or now < self.damage_invulnerable_until:
 			return
 
