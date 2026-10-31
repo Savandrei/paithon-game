@@ -11,7 +11,7 @@
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-FPS = 60 #FPS = inf
+FPS = 180 #FPS = inf
 TITLE = "to be written"
 
 

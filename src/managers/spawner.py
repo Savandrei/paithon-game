@@ -11,7 +11,7 @@ class Spawner:
         
         # Timing and progression
         self.timer = 0
-        self.spawn_interval = 10  # Frames between each spawn
+        self.spawn_interval = 0.13  # seconds
 
     def get_perimeter_pos(self):
         # Calculates a random coordinate just outside the screen boundaries
@@ -29,7 +29,7 @@ class Spawner:
 
     def update(self, dt):
         # Ticks the spawn timer and creates enemies
-        self.timer += 1
+        self.timer += dt
         
         if self.timer >= self.spawn_interval:
             self.timer = 0
