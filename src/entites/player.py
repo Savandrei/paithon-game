@@ -1,6 +1,7 @@
 import pygame
 from src.settings import PLAYER_SPEED, SCREEN_WIDTH, SCREEN_HEIGHT, DASH_SPEED, PLAYER_MAX_HP
 from src.entites.weapons import BaseWeapon, MagicWand, Slash, Meteorite, BulletWand
+import math
 
 
 # trial and error
@@ -49,8 +50,9 @@ class Player(pygame.sprite.Sprite):
 		self.speed = PLAYER_SPEED
 
 		self.weapons = []
-		self.add_weapon(MagicWand(self))
+		# self.add_weapon(MagicWand(self))
 		self.add_weapon(BulletWand(self))
+		# self.add_weapon(BulletWand(self))
 
 		#dash related variables
 		self.is_dashing = False
@@ -178,7 +180,7 @@ class Player(pygame.sprite.Sprite):
 		self.pos.y = self.rect.centery
 
 ##############################################################
-	def update(self, dt, all_sprites=None, projectile_group=None, enemy_group=None):
+	def update(self, dt, all_sprites=None, projectile_group=None, sorted_enemies=None):
 		direction = self.get_input()
 		current_time = pygame.time.get_ticks()
 
@@ -204,10 +206,13 @@ class Player(pygame.sprite.Sprite):
 
 		self.no_offscreen_warriors()
 
+		# sorting enemies based on how close
+		# they are for efficient weapon targeting
 
-		if all_sprites is not None and projectile_group is not None and enemy_group is not None:
+
+		if all_sprites is not None and projectile_group is not None and sorted_enemies is not None:
 			for weapon in self.weapons:
-				weapon.update(dt, all_sprites, projectile_group, enemy_group)
+				weapon.update(dt, all_sprites, projectile_group, sorted_enemies)
 
 ##############################################################
 	def take_damage(self, amount):

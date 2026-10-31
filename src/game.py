@@ -6,12 +6,12 @@
 # yea, I changed it literally 15 mins later
 
 import pygame
-# import sys
+import math
+
 from src.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, COLOR_BG, TITLE
 from src.entites.player import Player
 from src.managers.spawner import Spawner
 from src.managers.collision import CollisionManager
-# from src.ui.hud import HUD
 
 
 class Game:
@@ -50,9 +50,11 @@ class Game:
 
 	def update(self, dt):
 
-		self.player.update(dt=dt, all_sprites=self.all_sprites, projectile_group=self.projectiles, enemy_group=self.enemies)
+		self.sorted_enemies = sorted(self.enemies, key=lambda e: math.hypot(e.pos.x - self.player.pos.x, e.pos.y - self.player.pos.y))
 
-		self.all_sprites.update(dt)
+		self.player.update(dt=dt, all_sprites=self.all_sprites, projectile_group=self.projectiles, sorted_enemies=self.sorted_enemies)
+
+		self.all_sprites.update(dt, all_sprites=self.all_sprites, projectile_group=self.projectiles, sorted_enemies=self.sorted_enemies)
 		self.spawner.update(dt)
 		self.collision_manager.update()
 		# end the game if player ded

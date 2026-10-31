@@ -1,13 +1,14 @@
 import pygame
 
 class BaseWeapon:
-    # base class for player weapons and abilities
-    # sracks cooldown timers in seconds, weapon level, and triggers attacks
-    def __init__(self, player, cooldown=0.75):
+    # Base class for player weapons and abilities
+    # Tracks cooldown timers in seconds, weapon level, and triggers attacks
+    def __init__(self, player, cooldown=0.75, projectile_number=1):
         self.player = player
-        self.cooldown = cooldown  
+        self.cooldown = cooldown
         self.timer = 0.0
         self.level = 1
+        self.projectile_number = projectile_number
 
     def update(self, dt, all_sprites, projectile_group, enemy_group):
         # ticks the weapon cooldown using delta time (in seconds)
